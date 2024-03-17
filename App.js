@@ -17,9 +17,21 @@ export default function App() {
         <Text style={{ fontWeight: 'bold', color: 'red' }}>Welcome</Text> to{' '}
         <Text style={{ fontStyle: 'italic' }}>our</Text> App
       </Text>
+      <Text style={styles.paragraph}>
+      Enhance your Puri pilgrimage with the official Puri Temple app! Explore the temple's history, rituals, and daily darshan timings.
+      Plan your visit, navigate the temple complex, and discover hidden gems. This app is your pocket-sized pandit for a spiritual and enriching journey.
+      </Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Calendar</Text>
       </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={[styles.button, styles.signInButton]}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.signUpButton]}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -33,26 +45,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageContainer: {
-    borderRadius: 50,
-    overflow: 'hidden',
-    shadowColor: '#000',
     position: 'absolute',
     top: 80,
     alignItems: 'center',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    width: '100%',
   },
   image: {
     width: 300,
     height: 200,
+    borderRadius: 20, // Adjust this value to change the curvature of the border
+  },
+  text: {
+    textAlign: 'center',
+    marginVertical: 20,
+    fontSize: 20,
+    color: '#000',
+  },
+  paragraph: {
+    textAlign: 'center',
+    marginVertical: 5,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    color: '#000',
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
   },
   button: {
-    marginTop: 100, // Adjusted to position the button lower
     backgroundColor: '#fff',
     paddingVertical: 12,
     paddingHorizontal: 20,
@@ -65,6 +88,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+  },
+  signInButton: {
+    marginRight: 10, // Adjust the spacing between buttons if needed
+  },
+  signUpButton: {
+    marginLeft: 10, // Adjust the spacing between buttons if needed
   },
   buttonText: {
     fontSize: 16,
