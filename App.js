@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Animated } from 'react-native';
 
 export default function App() {
+  const translateX1 = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const animation1 = Animated.loop(
+      Animated.timing(translateX1, {
+        toValue: 1,
+        duration: 10000, // Adjust duration as needed
+        useNativeDriver: true,
+      })
+    );
+
+    animation1.start();
+
+    return () => {
+      animation1.stop();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -18,12 +36,20 @@ export default function App() {
         <Text style={{ fontStyle: 'italic' }}>our</Text> App
       </Text>
       <Text style={styles.paragraph}>
-      Enhance your Puri pilgrimage with the official Puri Temple app! Explore the temple's history, rituals, and daily darshan timings.
-      Plan your visit, navigate the temple complex, and discover hidden gems. This app is your pocket-sized pandit for a spiritual and enriching journey.
+        Enhance your Puri pilgrimage with the official Puri Temple app! Explore the temple's history, rituals, and daily darshan timings.
+        Plan your visit, navigate the temple complex, and discover hidden gems. This app is your pocket-sized pandit for a spiritual and enriching journey.
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={[styles.button, styles.calendarButton]}>
         <Text style={styles.buttonText}>Calendar</Text>
       </TouchableOpacity>
+      <Animated.View style={[styles.animatedParagraphContainer, { transform: [{ translateX: translateX1.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, -400], 
+      }) }] }]}>
+        <Text style={styles.animatedParagraph}>
+          Have you heard about the Puri Temple's shadowless wonder? Devotees believe the temple casts no shadow at any time of day, a miraculous touch by the divine!
+        </Text>
+      </Animated.View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={[styles.button, styles.signInButton]}>
           <Text style={styles.buttonText}>Sign In</Text>
@@ -46,14 +72,14 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     position: 'absolute',
-    top: 80,
+    top: 50,
     alignItems: 'center',
     width: '100%',
   },
   image: {
     width: 300,
     height: 200,
-    borderRadius: 20, // Adjust this value to change the curvature of the border
+    borderRadius: 20,
   },
   text: {
     textAlign: 'center',
@@ -76,11 +102,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   button: {
-    backgroundColor: '#fff',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
-    elevation: 5, // Shadow effect
+    elevation: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -88,16 +113,31 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-  },
-  signInButton: {
-    marginRight: 10, // Adjust the spacing between buttons if needed
-  },
-  signUpButton: {
-    marginLeft: 10, // Adjust the spacing between buttons if needed
+    backgroundColor: '#fff',
   },
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#000',
+  },
+  calendarButton: {
+    backgroundColor: '#3cb371',
+  },
+  signInButton: {
+    marginRight: 10,
+    backgroundColor: '#ff6347',
+  },
+  signUpButton: {
+    marginLeft: 10,
+    backgroundColor: '#4169e1',
+  },
+  animatedParagraphContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  animatedParagraph: {
+    fontSize: 16,
     color: '#000',
   },
 });
