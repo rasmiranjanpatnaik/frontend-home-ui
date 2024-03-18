@@ -42,14 +42,7 @@ export default function App() {
       <TouchableOpacity style={[styles.button, styles.calendarButton]}>
         <Text style={styles.buttonText}>Calendar</Text>
       </TouchableOpacity>
-      <Animated.View style={[styles.animatedParagraphContainer, { transform: [{ translateX: translateX1.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, -400], 
-      }) }] }]}>
-        <Text style={styles.animatedParagraph}>
-          Have you heard about the Puri Temple's shadowless wonder? Devotees believe the temple casts no shadow at any time of day, a miraculous touch by the divine!
-        </Text>
-      </Animated.View>
+      
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={[styles.button, styles.signInButton]}>
           <Text style={styles.buttonText}>Sign In</Text>
